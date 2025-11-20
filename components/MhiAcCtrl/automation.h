@@ -11,7 +11,13 @@ public:
   SetVerticalVanesAction(MhiPlatform *parent) : parent_(parent) {}
   TEMPLATABLE_VALUE(int, position);
   
-  void play(Ts... x) {
+// Use version guards for just the signature
+#if ESPHOME_VERSION_CODE >= VERSION_CODE(2025, 11, 0)
+  void play(const Ts&... x)
+#else
+  void play(Ts... x)
+#endif
+  {
     int pos = this->position_.value(x...);
     if (pos > 0 && pos < 6) {    
       this->parent_->set_vanes(pos);
@@ -27,7 +33,13 @@ public:
   SetHorizontalVanesAction(MhiPlatform *parent) : parent_(parent) {}
   TEMPLATABLE_VALUE(int, position);
   
-  void play(Ts... x) {
+// Use version guards for just the signature
+#if ESPHOME_VERSION_CODE >= VERSION_CODE(2025, 11, 0)
+  void play(const Ts&... x)
+#else
+  void play(Ts... x)
+#endif
+  {
     int pos = this->position_.value(x...);
     if (pos > 0 && pos < 9) {    
       this->parent_->set_vanesLR(pos);
@@ -43,7 +55,13 @@ public:
   SetExternalRoomTemperatureAction(MhiPlatform *parent) : parent_(parent) {}
   TEMPLATABLE_VALUE(float, temperature);
   
-  void play(Ts... x) {
+// Use version guards for just the signature
+#if ESPHOME_VERSION_CODE >= VERSION_CODE(2025, 11, 0)
+  void play(const Ts&... x)
+#else
+  void play(Ts... x)
+#endif
+  {
     float temp = this->temperature_.value(x...);
     this->parent_->set_room_temperature(temp);
     
